@@ -51,12 +51,15 @@ module.exports = [
 		loaders: [
 			test: /\.coffee/
 			loader: 'coffee-loader'
-		# ,
-		# 	test: /\.jsx/
-		# 	loader: 'babel-loader'
-		# ,
-		# 	test: /.html/
-		# 	loader: 'ejs-loader'
+		,
+			test: /\.json/
+			loader: 'json-loader'
+		,
+			test: /\.jsx/
+			loader: 'babel-loader'
+		,
+			test: /.html/
+			loader: 'ejs-loader'
 		]
 	resolve:
 		root: [

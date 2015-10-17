@@ -1,8 +1,8 @@
-# express = require 'express'
-# app = express()
+express = require 'express'
+app = express()
 
-# app.get '/', (req, res) ->
-# 	res.send 'hi'
+app.get '/', (req, res) ->
+	res.send 'hi'
 
-# app.listen 4000
-console.log "basics"
+app.listen 4000
+console.log "server started"
