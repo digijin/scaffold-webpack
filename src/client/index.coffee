@@ -1,4 +1,7 @@
 # _ = require 'lodash'
-console.log "yolo"
+console.log "client bundle!"
+
 include = require 'include'
+
 require 'nested/include'
+

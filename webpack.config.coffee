@@ -25,11 +25,10 @@ exts = [
 
 module.exports = [
 	name: 'client'
-	context: __dirname + '/src/client'
-	entry: 
-		client: './index'
+	context: path.join __dirname, '/src/client'
+	entry: './index'
 	output:
-		path: __dirname + '/build/client'
+		path: path.join __dirname, '/build/client'
 		filename: 'build.js'
 	module:
 		loaders: loaders
@@ -48,11 +47,11 @@ module.exports = [
 	]
 ,
 	name: 'server'
-	context: __dirname + '/src/server'
+	context: path.join __dirname, '/src/server'
 	entry: './index'
 	target: 'node'
 	output: 
-		path: __dirname + '/build'
+		path: path.join __dirname, '/build'
 		filename: 'build.js'
 	module:
 		loaders: loaders
@@ -62,7 +61,6 @@ module.exports = [
 		]
 		extensions: exts
 	plugins: [
-		new webpack.ResolverPlugin new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin "bower.json", ["main"]
 		(compiler) ->
 			@plugin 'done', (stats) ->
 				fs.writeFileSync path.join(__dirname, 'build', 'stats.json'), 

@@ -2,7 +2,7 @@
   "name": "scaffold-webpack",
   "version": "1.0.0",
   "description": "scaffold-webpack",
-  "main": "index.js",
+  "main": "build/build.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
