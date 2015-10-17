@@ -1,5 +1,27 @@
 webpack = require 'webpack'
 path = require 'path'
+fs = require 'fs'
+
+loaders = [
+	test: /\.coffee/
+	loader: 'coffee-loader'
+,
+	test: /\.json/
+	loader: 'json-loader'
+,
+	test: /\.jsx/
+	loader: 'babel-loader'
+,
+	test: /.html/
+	loader: 'ejs-loader'
+]
+exts = [
+	''
+	'.html'
+	'.js'
+	'.coffee'
+	'.jade'
+]
 
 module.exports = [
 	name: 'client'
@@ -10,34 +32,19 @@ module.exports = [
 		path: __dirname + '/build/client'
 		filename: 'build.js'
 	module:
-		loaders: [
-			test: /\.coffee/
-			loader: 'coffee-loader'
-		,
-			test: /\.jsx/
-			loader: 'babel-loader'
-		,
-			test: /.html/
-			loader: 'ejs-loader'
-		]
+		loaders: loaders
 	resolve:
 		root: [
 			path.join __dirname, 'bower_components'
 			path.join __dirname, 'src', 'client'
 		]
-		extensions: [
-			''
-			'.html'
-			'.js'
-			'.coffee'
-			'.jade'
-		]
+		extensions: exts
 	plugins: [
 		new webpack.ResolverPlugin new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin "bower.json", ["main"]
 		(compiler) ->
 			@plugin 'done', (stats) ->
-				require 'fs'
-					.writeFileSync path.join(__dirname, 'stats.json'), JSON.stringify stats.toJson()
+				fs.writeFileSync path.join(__dirname, 'build', 'client', 'stats.json'), 
+					JSON.stringify stats.toJson()
 	]
 ,
 	name: 'server'
@@ -48,29 +55,17 @@ module.exports = [
 		path: __dirname + '/build'
 		filename: 'build.js'
 	module:
-		loaders: [
-			test: /\.coffee/
-			loader: 'coffee-loader'
-		,
-			test: /\.json/
-			loader: 'json-loader'
-		,
-			test: /\.jsx/
-			loader: 'babel-loader'
-		,
-			test: /.html/
-			loader: 'ejs-loader'
-		]
+		loaders: loaders
 	resolve:
 		root: [
-			path.join __dirname, 'bower_components'
-			path.join __dirname, 'src', 'client'
+			path.join __dirname, 'src', 'server'
 		]
-		extensions: [
-			''
-			'.html'
-			'.js'
-			'.coffee'
-			'.jade'
-		]
+		extensions: exts
+	plugins: [
+		new webpack.ResolverPlugin new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin "bower.json", ["main"]
+		(compiler) ->
+			@plugin 'done', (stats) ->
+				fs.writeFileSync path.join(__dirname, 'build', 'stats.json'), 
+					JSON.stringify stats.toJson()
+	]
 ]
